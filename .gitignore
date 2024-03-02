@@ -1,0 +1,6 @@
+.terraform/
+terraform.tfstate*
+terraform-graph.svg
+secrets.*
+*.tmp.png
+*.log

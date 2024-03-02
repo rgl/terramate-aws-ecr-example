@@ -1,0 +1,34 @@
+name: Lint
+on: [push]
+jobs:
+  fmt:
+    name: fmt check
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: terramate-io/terramate-action@v1
+        with:
+          version: "0.4.6"
+      - name: terramate fmt check
+        run: terramate fmt --detailed-exit-code
+      - name: terraform fmt check
+        run: terramate run terraform fmt -check -diff
+  lint:
+    name: Lint
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: terramate-io/terramate-action@v1
+        with:
+          version: "0.4.6"
+      - uses: terraform-linters/setup-tflint@v4
+        name: Setup
+        with:
+          tflint_version: v0.50.2
+      - name: Init
+        run: terramate run tflint --init
+        env:
+          # https://github.com/terraform-linters/tflint/blob/master/docs/user-guide/plugins.md#avoiding-rate-limiting
+          GITHUB_TOKEN: ${{ github.token }}
+      - name: Lint
+        run: terramate run tflint --format compact
