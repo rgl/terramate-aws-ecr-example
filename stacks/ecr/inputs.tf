@@ -17,3 +17,10 @@ variable "region" {
   type    = string
   default = "eu-west-1"
 }
+
+variable "images" {
+  type = map(object({
+    name = string
+    tag  = string
+  }))
+}

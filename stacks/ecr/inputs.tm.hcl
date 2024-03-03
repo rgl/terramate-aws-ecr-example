@@ -4,5 +4,6 @@ generate_hcl "_inputs.auto.tfvars" {
     environment = global.environment
     region      = global.region
     stack       = terramate.stack.id
+    images      = global.source_images
   }
 }

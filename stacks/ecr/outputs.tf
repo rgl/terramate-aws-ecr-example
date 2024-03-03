@@ -15,6 +15,6 @@ output "registry_domain" {
 output "images" {
   # e.g. 123456.dkr.ecr.eu-west-1.amazonaws.com/aws-ecr-example/example:1.2.3
   value = {
-    for key, value in local.images : key => "${module.ecr_repository[key].repository_url}:${regex(":(?P<tag>[^:]+)$", value)["tag"]}"
+    for key, value in var.images : key => "${module.ecr_repository[key].repository_url}:${value.tag}"
   }
 }
