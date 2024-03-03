@@ -144,6 +144,12 @@ Destroy the example:
 terramate run --reverse terraform destroy
 ```
 
+List this repository dependencies (and which have newer versions):
+
+```bash
+GITHUB_COM_TOKEN='YOUR_GITHUB_PERSONAL_TOKEN' ./renovate.sh
+```
+
 # Notes
 
 * Its not possible to create multiple container image registries.

@@ -2,8 +2,9 @@ generate_hcl ".tflint.hcl" {
   content {
     plugin "aws" {
       enabled = true
-      version = "0.28.0"
       source  = "github.com/terraform-linters/tflint-ruleset-aws"
+      # renovate: datasource=github-releases depName=terraform-linters/tflint-ruleset-aws
+      version = "0.28.0"
     }
   }
 }
