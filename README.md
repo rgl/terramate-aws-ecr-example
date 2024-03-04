@@ -63,7 +63,7 @@ Review the files:
 Initialize the project:
 
 ```bash
-terramate run terraform init
+terramate run terraform init -lockfile=readonly
 ```
 
 Launch the example:

@@ -13,6 +13,18 @@ jobs:
         run: terramate fmt --detailed-exit-code
       - name: terraform fmt check
         run: terramate run terraform fmt -check -diff
+  validate:
+    name: validate
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: terramate-io/terramate-action@v1
+        with:
+          version: "0.4.6"
+      - name: Init
+        run: terramate run terraform init -lockfile=readonly
+      - name: Validate
+        run: terramate run terraform validate
   lint:
     name: Lint
     runs-on: ubuntu-22.04
