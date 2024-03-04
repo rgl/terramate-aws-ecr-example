@@ -1,6 +1,10 @@
 variable "project" {
   type    = string
   default = "aws-ecr-example"
+  validation {
+    condition     = can(regex("^[a-z][a-z0-9-]+$", var.project))
+    error_message = "Invalid project."
+  }
 }
 
 variable "environment" {
