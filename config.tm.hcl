@@ -1,6 +1,6 @@
 globals {
   project     = "aws-ecr-example"
-  environment = "test"
+  environment = "dev"
 
   # get the available regions with:
   #   aws ec2 describe-regions | jq -r '.Regions[].RegionName' | sort

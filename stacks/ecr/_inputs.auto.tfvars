@@ -1,6 +1,6 @@
 // TERRAMATE: GENERATED AUTOMATICALLY DO NOT EDIT
 
-environment = "test"
+environment = "dev"
 images = {
   example = {
     name = "docker.io/ruilopes/example-docker-buildx-go"

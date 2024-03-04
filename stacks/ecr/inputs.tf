@@ -5,7 +5,11 @@ variable "project" {
 
 variable "environment" {
   type    = string
-  default = "test"
+  default = "dev"
+  validation {
+    condition     = contains(["dev", "stg", "prd"], var.environment)
+    error_message = "Invalid environment."
+  }
 }
 
 variable "stack" {
