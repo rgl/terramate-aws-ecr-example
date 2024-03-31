@@ -36,5 +36,5 @@ globals "terraform" {
 # see https://github.com/hashicorp/terraform-provider-aws
 globals "terraform" "providers" "aws" {
   # renovate: datasource=terraform-provider depName=hashicorp/aws
-  version = "5.41.0"
+  version = "5.43.0"
 }
