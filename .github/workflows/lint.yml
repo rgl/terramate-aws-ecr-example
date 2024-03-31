@@ -14,6 +14,8 @@ jobs:
         with:
           # renovate: datasource=github-releases depName=terramate-io/terramate
           version: "0.6.0"
+      - name: terramate generate check
+        run: terramate generate --detailed-exit-code
       - name: terramate fmt check
         run: terramate fmt --detailed-exit-code
       - name: terraform fmt check
