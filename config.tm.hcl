@@ -21,7 +21,7 @@ globals {
     hello-etcd = {
       name = "ghcr.io/rgl/hello-etcd"
       # renovate: datasource=docker depName=rgl/hello-etcd registryUrl=https://ghcr.io
-      tag = "0.0.1"
+      tag = "0.0.2"
     }
   }
 }
@@ -29,12 +29,12 @@ globals {
 # see https://github.com/hashicorp/terraform
 globals "terraform" {
   # renovate: datasource=github-releases depName=hashicorp/terraform
-  version = "1.7.5"
+  version = "1.8.0"
 }
 
 # see https://registry.terraform.io/providers/hashicorp/aws
 # see https://github.com/hashicorp/terraform-provider-aws
 globals "terraform" "providers" "aws" {
   # renovate: datasource=terraform-provider depName=hashicorp/aws
-  version = "5.43.0"
+  version = "5.45.0"
 }

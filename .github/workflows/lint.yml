@@ -9,7 +9,7 @@ jobs:
       - uses: hashicorp/setup-terraform@v3
         with:
           # renovate: datasource=github-releases depName=hashicorp/terraform
-          terraform_version: "1.7.5"
+          terraform_version: "1.8.0"
       - uses: terramate-io/terramate-action@v1
         with:
           # renovate: datasource=github-releases depName=terramate-io/terramate
@@ -28,7 +28,7 @@ jobs:
       - uses: hashicorp/setup-terraform@v3
         with:
           # renovate: datasource=github-releases depName=hashicorp/terraform
-          terraform_version: "1.7.5"
+          terraform_version: "1.8.0"
       - uses: terramate-io/terramate-action@v1
         with:
           # renovate: datasource=github-releases depName=terramate-io/terramate
@@ -45,7 +45,7 @@ jobs:
       - uses: hashicorp/setup-terraform@v3
         with:
           # renovate: datasource=github-releases depName=hashicorp/terraform
-          terraform_version: "1.7.5"
+          terraform_version: "1.8.0"
       - uses: terramate-io/terramate-action@v1
         with:
           # renovate: datasource=github-releases depName=terramate-io/terramate
