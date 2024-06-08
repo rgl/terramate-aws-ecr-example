@@ -29,12 +29,12 @@ globals {
 # see https://github.com/hashicorp/terraform
 globals "terraform" {
   # renovate: datasource=github-releases depName=hashicorp/terraform
-  version = "1.8.0"
+  version = "1.8.5"
 }
 
 # see https://registry.terraform.io/providers/hashicorp/aws
 # see https://github.com/hashicorp/terraform-provider-aws
 globals "terraform" "providers" "aws" {
   # renovate: datasource=terraform-provider depName=hashicorp/aws
-  version = "5.45.0"
+  version = "5.53.0"
 }
