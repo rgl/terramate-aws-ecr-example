@@ -4,11 +4,11 @@ environment = "dev"
 images = {
   example = {
     name = "docker.io/ruilopes/example-docker-buildx-go"
-    tag  = "v1.11.0"
+    tag  = "v1.12.0"
   }
   hello-etcd = {
     name = "ghcr.io/rgl/hello-etcd"
-    tag  = "0.0.2"
+    tag  = "0.0.3"
   }
 }
 project = "aws-ecr-example"
