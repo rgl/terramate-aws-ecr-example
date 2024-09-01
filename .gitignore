@@ -2,6 +2,6 @@ tmp/
 .terraform/
 terraform.tfstate*
 terraform-graph.svg
-secrets.*
+secrets*
 *.tmp.png
 *.log

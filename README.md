@@ -20,32 +20,82 @@ Install the dependencies:
 * [Crane](https://github.com/google/go-containerregistry/releases).
 * [Docker](https://docs.docker.com/engine/install/).
 
-Set the AWS Account credentials using SSO:
+Set the AWS Account credentials using SSO, e.g.:
 
 ```bash
+# set the account credentials.
+# NB the aws cli stores these at ~/.aws/config.
+# NB this is equivalent to manually configuring SSO using aws configure sso.
+# see https://docs.aws.amazon.com/cli/latest/userguide/sso-configure-profile-token.html#sso-configure-profile-token-manual
+# see https://docs.aws.amazon.com/cli/latest/userguide/sso-configure-profile-token.html#sso-configure-profile-token-auto-sso
+cat >secrets-example.sh <<'EOF'
 # set the environment variables to use a specific profile.
-# e.g. use the pattern <aws-sso-session-name>-<aws-account-name>-<aws-account-role>-<aws-account-id>
-export AWS_PROFILE=example-dev-AdministratorAccess-123456
+# NB use aws configure sso to configure these manually.
+# e.g. use the pattern <aws-sso-session>-<aws-account-id>-<aws-role-name>
+export aws_sso_session='example'
+export aws_sso_start_url='https://example.awsapps.com/start'
+export aws_sso_region='eu-west-1'
+export aws_sso_account_id='123456'
+export aws_sso_role_name='AdministratorAccess'
+export AWS_PROFILE="$aws_sso_session-$aws_sso_account_id-$aws_sso_role_name"
 unset AWS_ACCESS_KEY_ID
 unset AWS_SECRET_ACCESS_KEY
 unset AWS_DEFAULT_REGION
-# set the account credentials.
-# see https://docs.aws.amazon.com/cli/latest/userguide/sso-configure-profile-token.html#sso-configure-profile-token-auto-sso
-aws configure sso
-# dump the configured profile and sso-session.
-cat ~/.aws/config
+# configure the ~/.aws/config file.
+# NB unfortunately, I did not find a way to create the [sso-session] section
+#    inside the ~/.aws/config file using the aws cli. so, instead, manage that
+#    file using python.
+python3 <<'PY_EOF'
+import configparser
+import os
+aws_sso_session = os.getenv('aws_sso_session')
+aws_sso_start_url = os.getenv('aws_sso_start_url')
+aws_sso_region = os.getenv('aws_sso_region')
+aws_sso_account_id = os.getenv('aws_sso_account_id')
+aws_sso_role_name = os.getenv('aws_sso_role_name')
+aws_profile = os.getenv('AWS_PROFILE')
+config = configparser.ConfigParser()
+aws_config_directory_path = os.path.expanduser('~/.aws')
+aws_config_path = os.path.join(aws_config_directory_path, 'config')
+if os.path.exists(aws_config_path):
+  config.read(aws_config_path)
+config[f'sso-session {aws_sso_session}'] = {
+  'sso_start_url': aws_sso_start_url,
+  'sso_region': aws_sso_region,
+  'sso_registration_scopes': 'sso:account:access',
+}
+config[f'profile {aws_profile}'] = {
+  'sso_session': aws_sso_session,
+  'sso_account_id': aws_sso_account_id,
+  'sso_role_name': aws_sso_role_name,
+  'region': aws_sso_region,
+}
+os.makedirs(aws_config_directory_path, mode=0o700, exist_ok=True)
+with open(aws_config_path, 'w') as f:
+  config.write(f)
+PY_EOF
+unset aws_sso_start_url
+unset aws_sso_region
+unset aws_sso_session
+unset aws_sso_account_id
+unset aws_sso_role_name
 # show the user, user amazon resource name (arn), and the account id, of the
 # profile set in the AWS_PROFILE environment variable.
+if ! aws sts get-caller-identity >/dev/null 2>&1; then
+  aws sso login
+fi
 aws sts get-caller-identity
+EOF
 ```
 
-Or, set the AWS Account credentials using an Access Key:
+Or, set the AWS Account credentials using an Access Key, e.g.:
 
 ```bash
 # set the account credentials.
 # NB get these from your aws account iam console.
 #    see Managing access keys (console) at
 #        https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey
+cat >secrets-example.sh <<'EOF'
 export AWS_ACCESS_KEY_ID='TODO'
 export AWS_SECRET_ACCESS_KEY='TODO'
 unset AWS_PROFILE
@@ -53,6 +103,13 @@ unset AWS_PROFILE
 export AWS_DEFAULT_REGION='eu-west-1'
 # show the user, user amazon resource name (arn), and the account id.
 aws sts get-caller-identity
+EOF
+```
+
+Load the secrets:
+
+```bash
+source secrets-example.sh
 ```
 
 Review the files:
