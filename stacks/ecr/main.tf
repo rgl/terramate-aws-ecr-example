@@ -3,7 +3,7 @@
 # see https://github.com/terraform-aws-modules/terraform-aws-ecr
 module "ecr_repository" {
   source  = "terraform-aws-modules/ecr/aws"
-  version = "2.2.1"
+  version = "3.0.0"
 
   for_each = var.images
 

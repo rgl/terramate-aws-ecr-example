@@ -5,15 +5,15 @@ jobs:
     name: fmt check
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: hashicorp/setup-terraform@v3
         with:
           # renovate: datasource=github-releases depName=hashicorp/terraform
-          terraform_version: "1.9.5"
-      - uses: terramate-io/terramate-action@v2
+          terraform_version: "1.12.2"
+      - uses: terramate-io/terramate-action@v3
         with:
           # renovate: datasource=github-releases depName=terramate-io/terramate
-          version: "0.10.2"
+          version: "0.14.4"
       - name: terramate generate check
         run: terramate generate --detailed-exit-code
       - name: terramate fmt check
@@ -24,15 +24,15 @@ jobs:
     name: validate
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: hashicorp/setup-terraform@v3
         with:
           # renovate: datasource=github-releases depName=hashicorp/terraform
-          terraform_version: "1.9.5"
-      - uses: terramate-io/terramate-action@v2
+          terraform_version: "1.12.2"
+      - uses: terramate-io/terramate-action@v3
         with:
           # renovate: datasource=github-releases depName=terramate-io/terramate
-          version: "0.10.2"
+          version: "0.14.4"
       - name: Init
         run: terramate run terraform init -lockfile=readonly
       - name: Validate
@@ -41,20 +41,20 @@ jobs:
     name: Lint
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: hashicorp/setup-terraform@v3
         with:
           # renovate: datasource=github-releases depName=hashicorp/terraform
-          terraform_version: "1.9.5"
-      - uses: terramate-io/terramate-action@v2
+          terraform_version: "1.12.2"
+      - uses: terramate-io/terramate-action@v3
         with:
           # renovate: datasource=github-releases depName=terramate-io/terramate
-          version: "0.10.2"
-      - uses: terraform-linters/setup-tflint@v4
+          version: "0.14.4"
+      - uses: terraform-linters/setup-tflint@v5
         name: Setup
         with:
           # renovate: datasource=github-releases depName=terraform-linters/tflint
-          tflint_version: v0.53.0
+          tflint_version: v0.58.1
       - name: Init
         run: terramate run tflint --init
         env:

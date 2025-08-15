@@ -8,7 +8,7 @@ images = {
   }
   hello-etcd = {
     name = "ghcr.io/rgl/hello-etcd"
-    tag  = "0.0.3"
+    tag  = "0.0.5"
   }
 }
 project = "aws-ecr-example"
